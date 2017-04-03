@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+#connection-message {
+    background-color: #ffec66;
+    bottom: 0px;
+    font-family: sans-serif;
+    font-size: 12px;
+    left: 0px;
+    padding: 4px;
+    position: fixed;
+    z-index: 100;
+    display: none;
+}
+</style>
+<title>DoubleMap</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+<link rel="stylesheet" href="DoubleMap_files/leaflet.css" />
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+    <![endif]-->
+<script src="DoubleMap_files/leaflet.js"></script>
+<script src="DoubleMap_files/doublemap.js"></script>
+<script>
+
+$(window).resize(function () {
+    $("#map").height($(window).height())
+});
+
+setTimeout(function () { window.location.reload(); }, 600000);
+
+$(function(){
+    $(window).resize()
+    var chooseRoute = function(id) {
+        DM.setAllRoutes(false)
+        DM.setRoute(id, true);
+        //window.location.hash = id;
+        $("#route-selector").hide();
+    }
+    var unchooseRoute = function() {
+        if(window.location.hash === "") {
+            DM.setAllRoutes(false)
+            $("#route-selector").show();
+        }
+    }
+    window.onhashchange = unchooseRoute;
+    // ugh awful hack to make routes screen cover up stuff
+    var DMlocal =  {
+        addRoute: function(route, callback) {
+        },
+        timeOut: function(callback) {
+            var dialog = $("#timeout")
+            var button = $("#timeout-resume")
+            button.click(function() {
+                if(callback) {
+                    callback()
+                }
+                dialog.hide()
+            })
+            dialog.show()
+        },
+        busAnnotation: 'route_id',
+        showControls: false,
+        passive: true
+    }
+    var DM = new DoubleMap(
+        $("#map").get(0),
+        DMlocal,
+        40.41428,-86.87954,13    )
+    DM.setTick(1200)
+    $(window).resize()
+})
+</script>
+</head>
+<body class="ifon" style="padding:0;margin:0;">
+<div id="map" style="height: 376px; width: 100%;">
+    DoubleMap live map placeholder
+</div>
+<span id="connection-message">Connection lost. Reconnecting...</span>
+</body>
+</html>
