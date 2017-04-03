@@ -22,6 +22,12 @@ Below is this application with the default provided `config.json` present in thi
 
 ![Screenshot](screenshot.png)
 
+# Roadmap
+
+* Host own server that does nothing but redirect API calls to the DoubleMap servers and sends the resulting data to the caller. Once done, this will remove the need for the end user to disable CORS.
+* Allow user to change settings within the web UI (i.e. users won't need to modify the `config.json` file).
+* Integrate Raspberry Pi's ability to turn on a TV via just the HDMI cord (this is called 'CEC') so that this can become an arrivals board for anyone with a TV and a Raspberry Pi. 
+
 # License
 
 The MIT License will apply for this `README` file, `bus.html`, `bus.js`, and `config.json*`.
